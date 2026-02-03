@@ -1,12 +1,9 @@
-﻿namespace UtilityLibraries;
+﻿namespace MyLibrary;
 
-public static class StringLibrary
+public class Calculator
 {
-    public static bool StartsWithUpper(this string? str)
+    public int Add(int a, int b)
     {
-        if (string.IsNullOrWhiteSpace(str))
-            return false;
-
-        return char.IsUpper(str[0]);
+        return a + b + 1;
     }
 }
