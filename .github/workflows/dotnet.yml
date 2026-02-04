@@ -1,6 +1,8 @@
-name: .NET Build and Test
+# This workflow will build a .NET project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
 
-# Trigger the workflow on push or pull request events
+name: .NET
+
 on:
   push:
     branches: [ "main" ]
@@ -8,30 +10,24 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build-and-test:
-    # We use the latest Ubuntu runner (Linux environment)
+  build:
+
     runs-on: ubuntu-latest
 
     steps:
-    # Step 1: Check out the code from your repository so the runner can access it
     - uses: actions/checkout@v4
-
-    # Step 2: Install .NET on the runner
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 8.0.x # Ensure this matches the version on your local machine (likely 8.0 or 9.0)
-
-    # Step 3: Restore dependencies (nuget packages)
+        dotnet-version: 10.0.x
     - name: Restore dependencies
       run: dotnet restore
+      working-directory: ClassLibraryProject/ShowCase
 
-    # Step 4: Build the project
-    # We use --no-restore because we already ran restore above
     - name: Build
       run: dotnet build --no-restore
+      working-directory: ClassLibraryProject/ShowCase
 
-    # Step 5: Run Tests
-    # We use --no-build because we just built it in the previous step
     - name: Test
       run: dotnet test --no-build --verbosity normal
+      working-directory: ClassLibraryProject/ShowCase
